@@ -1,0 +1,390 @@
+@import 'vars';
+
+html {
+    font-size: 16px;
+}
+body {
+    --margin: 20px;
+    --header-height: 90px;
+    --grid-gap: 24px;
+
+    --black: #000000;
+    --white: #ffffff;
+
+    --blue: #0047ff;
+
+    --font-display: 'Helvetica', sans-serif;
+    --font-body: 'Helvetica', sans-serif;
+
+    @include fontSize(16px);
+    font-family: var(--font-body);
+    margin: 0;
+
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+
+    .font-secondary {
+        font-family: 'Helvetica', sans-serif;
+    }
+}
+
+// font styles
+.style-detail {
+    @include fontSize(16px);
+}
+.style-body {
+    @include fontSize(21px);
+    line-height: 1.05;
+
+    @include bp(s) {
+        font-size: 18px;
+        letter-spacing: -0.5px;
+    }
+}
+.style-label {
+    @include fontSize(30px);
+}
+.style-h3 {
+    @include fontSize(50px);
+}
+.style-h2 {
+    @include fontSize(72px);
+    font-weight: 400;
+}
+.style-big-1 {
+    @include fontSize(160px);
+    font-weight: 400;
+    line-height: 0.77;
+}
+
+// Mobile helpers
+@include bp(s) {
+    html {
+        font-size: 12px;
+    }
+    .desktop-only {
+        display: none !important;
+    }
+}
+@include bigger-than(750px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+// Text selection
+::selection {
+    color: #ebebe3;
+    background: #222;
+}
+::-moz-selection {
+    color: #ebebe3;
+    background: #222;
+}
+
+// Grid
+.design-grid {
+    @include design-grid;
+}
+// More Grid
+.four-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-column-gap: var(--grid-gap);
+    grid-row-gap: var(--grid-gap);
+
+    @include bp(s) {
+        grid-template-columns: 1fr;
+    }
+}
+.three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-column-gap: var(--grid-gap);
+    grid-row-gap: var(--grid-gap);
+
+    @include bp(s) {
+        grid-template-columns: 1fr;
+    }
+}
+
+button {
+    @include button-reset;
+    transition: color 200ms;
+}
+h1,
+.h1 {
+    @include fontSize(90px);
+}
+h2,
+.h2 {
+    @include fontSize(75px);
+}
+h3,
+.h3 {
+    @include fontSize(50px);
+}
+h4,
+.h4 {
+    @include fontSize(30px);
+}
+h5,
+.h5 {
+    @include fontSize(20px);
+}
+h6,
+.h6 {
+    @include fontSize(20px);
+}
+
+a {
+    transition: color 200ms;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s;
+
+    path {
+        transition: fill 0.3s;
+    }
+
+    @include hover {
+        color: var(--blue);
+
+        path {
+            fill: var(--blue);
+        }
+    }
+}
+
+.contained {
+    padding-right: var(--margin);
+    padding-left: var(--margin);
+    max-width: 1790px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.overlay {
+    @include fill;
+    background: rgba(#000, 0.3);
+}
+
+// Mobile
+@include bp(s) {
+    html {
+        font-size: 12px;
+    }
+    body {
+        --margin: 15px;
+        --header-height: 64px;
+        --grid-gap: 15px;
+    }
+}
+
+// z-index layers
+
+// resets
+.content-reset {
+    & > *:first-child {
+        margin-top: 0;
+    }
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
+.button-reset {
+    @include button-reset;
+}
+.ul-reset {
+    @include ul-reset;
+}
+.input-reset {
+    @include input-reset;
+}
+.btn {
+    @include button-reset;
+
+    &:hover,
+    &:focus {
+    }
+}
+
+// entry styling
+.entry {
+    a {
+        text-decoration: underline;
+    }
+    p {
+        line-height: 1.25;
+        min-height: 1px;
+    }
+    ul,
+    ol {
+        line-height: 1.8;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    & > * {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    & > *:first-child {
+        margin-top: 0;
+    }
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// WIV
+.wiv.intersected {
+    transition: opacity 700ms, transform 750ms ease;
+    transition-delay: 200ms;
+}
+.wiv:not(.intersected) {
+    transform: translateY(8px);
+    opacity: 0;
+}
+
+// V-scramble
+.v-scramble:not(.v-scramble-ready) {
+    opacity: 0;
+}
+
+// Reverse Hover
+.rh-processed,
+.rh-processed.wiv {
+    transition: opacity 200ms;
+}
+.rh-active-within .rh-processed {
+    opacity: 0.6;
+
+    &.rh-active {
+        opacity: 1;
+    }
+}
+
+// Image fade
+.prismic-image .media-image.fade-enter-active,
+.prismic-image .media-image.fade-leave-active {
+    transition-duration: 800ms;
+    transition-delay: 150ms;
+}
+
+// Quick fade
+.quick-fade-enter-active,
+.quick-fade-leave-active {
+    transition: opacity 0.2s;
+}
+.quick-fade-enter,
+.quick-fade-leave-to {
+    opacity: 0;
+}
+
+// Basic fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 400ms;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+// Slow fade
+.slow-fade-enter-active,
+.slow-fade-leave-active {
+    transition: opacity 0.4s;
+}
+.slow-fade-enter,
+.slow-fade-leave-to {
+    opacity: 0;
+}
+
+// Basic slide
+.slide-down-enter-active,
+.slide-down-leave-active {
+    transition: transform 0.3s;
+}
+.slide-down-enter,
+.slide-down-leave-to {
+    transform: translateY(-100%);
+}
+
+// Horizontal slides
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+    transition: transform 1s ease;
+}
+.slide-right-enter {
+    transform: translateX(-100%);
+}
+.slide-right-leave-to {
+    transform: translateX(100%);
+    position: absolute;
+}
+.slide-left-enter {
+    transform: translateX(100%);
+}
+.slide-left-leave-to {
+    transform: translateX(-100%);
+    position: absolute;
+}
+
+// page-fade
+.page-enter-active,
+.page-leave-active,
+.layout-enter-active,
+.layout-leave-active {
+    transition: opacity 200ms ease;
+}
+.page-enter,
+.page-leave-to,
+.layout-enter,
+.layout-leave-to {
+    opacity: 0;
+}
+
+// https://stackoverflow.com/a/37553385/3856675
+*::-webkit-media-controls-panel {
+    display: none !important;
+    -webkit-appearance: none;
+}
+
+/* Old shadow dom for play button */
+
+*::-webkit-media-controls-play-button {
+    display: none !important;
+    -webkit-appearance: none;
+}
+
+/* New shadow dom for play button */
+
+/* This one works! */
+
+*::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+}
+
+.default {
+   background: #ccc;
+   main {
+    background: #fff;
+    max-width: 850px;
+    margin: 2rem;
+    padding: 1rem;
+   }
+
+}

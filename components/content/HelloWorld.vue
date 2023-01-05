@@ -1,6 +1,12 @@
 <template>
-  <div class="rounded p-2 bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200">
-    <!-- https://content.nuxtjs.org/api/components/content-slot -->
-    <ContentSlot :use="$slots.default" unwrap="p" />
-  </div>
+    <div class="hello-world">
+        <strong>Embedded Component</strong>
+        <slot/>
+    </div>
 </template>
+<style lang="scss">
+.hello-world {
+    padding: .5rem;
+    background: pink;
+}
+</style>

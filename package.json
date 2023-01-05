@@ -1,15 +1,53 @@
 {
-  "private": true,
+  "name": "j-squared-content-template",
+  "private": false,
+  "version": "0.0.1",
+  "main": "nuxt.config.ts",
+  "license": "MIT",
   "scripts": {
     "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate",
-    "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "build": "nuxi build .demo",
+    "generate": "nuxi generate .demo",
+    "preview": "nuxi preview .demo",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm lint",
+    "release": "release-it"
+  },
+  "files": [
+    "app/",
+    "components/",
+    "layouts/",
+    "app.vue",
+    "app.config.ts",
+    "nuxt.config.ts",
+    "nuxt.schema.ts",
+    "tailwind.config.ts"
+  ],
+  "dependencies": {
+    "@nuxt-themes/elements": "^0.4.3",
+    "@nuxt-themes/typography": "^0.4.0",
+    "@nuxt/content": "^2.3.0",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "bootstrap": "^5.2.3",
+    "nuxt-config-schema": "^0.4.0",
+    "nuxt-icon": "^0.1.8",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.2.0"
   },
   "devDependencies": {
-    "content-wind": "^0.3.2",
+    "@nuxt/eslint-config": "^0.1.1",
+    "eslint": "^8.31.0",
     "nuxt": "^3.0.0",
-    "typescript": "^4.9.3"
+    "release-it": "^15.6.0",
+    "typescript": "^4.9.4"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore(release): release v${version}"
+    },
+    "github": {
+      "release": true,
+      "releaseName": "v${version}"
+    }
   }
 }

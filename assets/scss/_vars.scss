@@ -1,0 +1,183 @@
+@import 'easings';
+
+// mixins
+@mixin fill($position: absolute) {
+    position: #{$position};
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+@mixin cover {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+@mixin contain {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+@mixin no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+@mixin button-reset {
+    @include no-select;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+    border-radius: 0;
+    font-weight: inherit;
+    font-size: inherit;
+    padding: 0;
+    color: inherit;
+    margin: 0;
+}
+@mixin input-reset {
+    background-color: transparent;
+    appearance: none;
+    font-family: inherit;
+    border-radius: 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    border: none;
+    color: inherit;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+}
+@mixin ul-reset {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin design-grid {
+    grid-template-columns: repeat(12, 1fr);
+    padding-right: var(--margin);
+    padding-left: var(--margin);
+    grid-gap: var(--margin);
+    display: grid;
+
+    > * {
+        min-width: 0;
+    }
+
+    @include bp(s) {
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 15px;
+    }
+}
+
+// Type Size
+// ---------------------------------------------
+@function calculateRem($size) {
+    $remSize: calc($size / 16px);
+    @return #{$remSize}rem;
+}
+@function calculateVw($size) {
+    $vwSize: calc(($size / 1790px) * 100);
+    @return #{$vwSize}vw;
+}
+@mixin fontSize($size) {
+    font-size: $size; // Fallback in px
+    font-size: calculateRem($size);
+
+    @include smaller-than(1700px) {
+        // font-size: calculateRem($size * 0.77);
+        font-size: calculateRem($size * 0.93);
+    }
+    @include smaller-than(1550px) {
+        font-size: calculateRem($size * 0.77);
+    }
+}
+
+//Type Scale
+//---------------
+$h1: 207.43px;
+$h2: 50.93px;
+$h3: 37.32px;
+$h4: 29.03px;
+$h5: 24.89px;
+$p: 16.59px;
+
+// Breakpoints
+// ---------------------------------------------
+$mobile-breakpoint: 700px;
+$breakpoints: (
+    xl: (
+        min-width: 1100px,
+    ),
+    l: (
+        max-width: 992px,
+    ),
+    m: (
+        max-width: 840px,
+    ),
+    s: (
+        max-width: $mobile-breakpoint,
+    ),
+    xs: (
+        max-width: 480px,
+    ),
+);
+@mixin bp($name: 's') {
+    $value: map-get($breakpoints, $name);
+    @if map-has-key($breakpoints, $name) {
+        @media #{inspect(map-get($breakpoints, $name))} {
+            @content;
+        }
+    } @else {
+        @media (max-width: #{$name}) {
+            @content;
+        }
+        // @warn "The '#{$name}' breakpoint is not defined. "
+        // + "Please make sure it is defined in the global.scss '$breakpoint' map.";
+    }
+}
+
+@mixin smaller-than($size) {
+    @media (max-width: $size) {
+        @content;
+    }
+}
+@mixin bigger-than($size) {
+    @media (min-width: $size) {
+        @content;
+    }
+}
+
+@mixin imgShadow($color) {
+    box-shadow: 0px 0px 50px 4px $color;
+}
+@mixin fadeColor($color) {
+}
+@mixin hover {
+    &:hover,
+    &:focus {
+        @content;
+    }
+}
+
+@mixin more-button-hover-styling {
+    transition: transform 0.3s;
+
+    @include hover {
+        //color: var(--blue);
+        transform: scale(1.05);
+    }
+}
